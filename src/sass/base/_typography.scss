@@ -1,0 +1,21 @@
+h1,
+h2,
+h3,
+h4 {
+  color: map-get($branding-colors, 'heading-color');
+  text-align: left;
+  font: map-deep-get($typography, 'heading', 'font');
+  margin: 0 0 16px;
+  padding: 0;
+
+  .on-dark & {
+    color: map-get($on-dark-colors, 'heading-color');
+  }
+}
+
+// Loop through the heading font sizes
+@each $heading, $font-size in map-deep-get($typography, 'heading', 'font-sizes') {
+  #{$heading} {
+    font-size: $font-size;
+  }
+}

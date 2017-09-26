@@ -1,0 +1,94 @@
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+::-moz-selection,
+::selection {
+  background: map-get($color-palette, black);
+  color: map-get($color-palette, white);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: map-get($branding-colors, 'body-background');
+  color: map-get($branding-colors, 'color');
+  font: map-deep-get($typography, 'base', 'font');
+
+  @media screen and (min-width: 768px) {
+    font-size: map-deep-get($typography, 'base', 'font-size-larger');
+  }
+
+  text-align: left;
+}
+
+a,
+button {
+  transition: all 0.1s ease-in-out;
+}
+
+a {
+  color: map-get($branding-colors, 'link');
+  font-weight: 700;
+  text-decoration: none;
+  word-wrap: break-word;
+
+  &.underline {
+    border-bottom: 1px dotted;
+  }
+
+  img {
+    margin-bottom: -4px;
+  }
+
+  &:hover, &:focus {
+    color: map-get($branding-colors, 'link-hover');
+  }
+
+  &:active, &:hover, &:focus, & {
+    outline: none;
+  }
+}
+
+p {
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+strong {
+  font-weight: 700;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+
+  &.list--indent {
+    margin-left: 40px;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  vertical-align: middle;
+}
+
+.hide {
+  display: none;
+}

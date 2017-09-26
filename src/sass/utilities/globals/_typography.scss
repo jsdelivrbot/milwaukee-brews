@@ -1,0 +1,24 @@
+//
+// Typography
+//===============================
+$typography: (
+        base: (
+                font: (normal 16px/1.625 'Source Sans Pro', sans-serif),
+                font-family: ('Source Sans Pro', sans-serif),
+                font-size: 16px,
+                line-height: 1.625,
+                font-size-larger: 18px
+        ),
+        heading: (
+                font: (600 20px/1.25 'Source Sans Pro', sans-serif),
+                font-family: ('Source Sans Pro', sans-serif),
+                font-size: 20px,
+                line-height: 1.25,
+                font-sizes: (
+                        h1: 24px,
+                        h2: 22px,
+                        h3: 20px,
+                        h4: 18px
+                )
+        )
+);

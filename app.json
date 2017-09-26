@@ -1,0 +1,8 @@
+{
+  "name": "Milwaukee Brews",
+  "description": "My Favorite Brew Houses in Milwaukee",
+  "repository": "https://github.com/hellofromtonya/milwaukee-brews",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}

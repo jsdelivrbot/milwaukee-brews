@@ -1,0 +1,30 @@
+{
+  "name": "neighborhood-brews",
+  "version": "0.0.1",
+  "description": "My Favorite Brew Houses in Milwaukee",
+  "keywords": [
+    "css",
+    "js",
+    "sass",
+    "nodejs",
+    "knockout",
+    "google-maps"
+  ],
+  "homepage": "https://github.com/hellofromtonya/milwaukee-brews",
+  "main": [
+    "sass/style.scss",
+    "style.css"
+  ],
+  "ignore": [
+    ".jshintrc",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "^3.4.2",
+    "normalize-css": "^7.0.0"
+  }
+}

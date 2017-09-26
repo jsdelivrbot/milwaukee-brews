@@ -1,0 +1,9 @@
+.hotspot-menu-item {
+  padding: 10px 20px;
+
+  &:hover {
+    background-color: map-deep-get($on-dark-colors, 'menu-active', 'background-color');
+    color: map-deep-get($on-dark-colors, 'menu-active', 'color');
+    cursor: pointer;
+  }
+}

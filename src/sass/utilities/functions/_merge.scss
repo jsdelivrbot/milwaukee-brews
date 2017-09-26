@@ -1,0 +1,7 @@
+@function merge-with-defaults($defaults, $map-to-merge: null) {
+  @if variable_exists($map-to-merge) {
+    @return map-merge($defaults, $map-to-merge);
+  }
+
+  @return $defaults;
+}

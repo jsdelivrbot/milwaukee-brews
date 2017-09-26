@@ -1,0 +1,38 @@
+//
+// Colors
+//======================
+
+$color-palette: (
+        white: #fff,
+        black: #191919,
+        yellow: #ffc40d,
+        orange: #cb4b14,
+        red: #cc0000,
+        green: #627f00
+);
+
+$branding-colors: (
+        'body-background': map-get($color-palette, white),
+        'color': map-get($color-palette, black),
+        'heading-color': map-get($color-palette, black),
+        'link': map-get($color-palette, orange),
+        'link-hover': map-get($color-palette, black)
+);
+
+@debug $branding-colors;
+
+$on-dark-colors: (
+        'sidebar-background': map-get($color-palette, black),
+        'heading-color': map-get($color-palette, white),
+        'color': map-get($color-palette, white),
+        'link': map-get($color-palette, white),
+        'link-hover': map-get($color-palette, yellow),
+        'menu': (
+                'background-color': transparent,
+                'color': map-get($color-palette, white),
+        ),
+        'menu-active': (
+                'background-color': map-get($color-palette, yellow),
+                'color': map-get($color-palette, black),
+        )
+);
