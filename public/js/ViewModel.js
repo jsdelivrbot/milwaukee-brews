@@ -59,10 +59,10 @@ class ViewModel {
     const self = this;
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: 43.044783,
-        lng: -87.911197
+        lat: 43.045758,
+        lng: -87.906
       },
-      zoom: 14,
+      zoom: this.getMapZoom(),
       styles: getMinimalStyling(),
       mapTypeControl: false
     });
@@ -89,6 +89,12 @@ class ViewModel {
       placeModel.marker.addListener('mouseover', () => placeModel.marker.setIcon(highlightedIcon));
       placeModel.marker.addListener('mouseout', () => placeModel.marker.setIcon(defaultIcon));
     });
+  }
+
+  getMapZoom() {
+    return window.innerWidth > 1000 && window.innerHeight > 900
+        ? 15
+        : 14;
   }
 
   /**
