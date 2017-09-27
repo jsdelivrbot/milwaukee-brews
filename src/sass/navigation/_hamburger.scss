@@ -3,7 +3,7 @@ $hamburgerSpacing: 8px;
 .hamburger__menu {
   position: absolute;
   top: 32px;
-  left: 40px;
+  left: 20px;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -12,6 +12,7 @@ $hamburgerSpacing: 8px;
   border-bottom: none;
 
   @media screen and (min-width: 800px) {
+    left: 40px;
     width: 80px;
   }
 }

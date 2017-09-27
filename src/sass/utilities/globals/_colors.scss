@@ -19,7 +19,7 @@ $branding-colors: (
         'link-hover': map-get($color-palette, black)
 );
 
-@debug $branding-colors;
+//@debug $branding-colors;
 
 $on-dark-colors: (
         'sidebar-background': map-get($color-palette, black),

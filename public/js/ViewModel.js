@@ -27,6 +27,7 @@ class ViewModel {
 
     // Nothing to filter. Return all the models.
     if (!filterby) {
+      this.places().forEach((place) => place.makeVisible());
       return this.places();
     }
 
@@ -110,7 +111,6 @@ class ViewModel {
    */
   setPlace(self, placeModel) {
     self.openInfoWindow.call(self, placeModel);
-    // self.infoWindow.render.call(self.infoWindow, placeModel);
   }
 
   /**
