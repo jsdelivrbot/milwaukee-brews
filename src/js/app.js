@@ -44,7 +44,7 @@ ko.applyBindings(app);
 // Let's watch to make sure Google loads up
 // If no, let the viewer know.
 setTimeout(() => {
-  if (!app.appRunning() || ! window.google || ! window.google.maps) {
+  if (!app.appRunning() || !window.google || !window.google.maps) {
     initError();
   }
 }, 5000);
