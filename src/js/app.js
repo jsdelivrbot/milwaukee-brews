@@ -5,7 +5,7 @@
  * @param {array} data
  * @function
  */
-function getAllModels(data) {
+const getAllModels = (data) => {
   const locations = [];
 
   data.forEach((location, index) => locations.push(new PlaceModel(location, index)));
@@ -18,7 +18,7 @@ function getAllModels(data) {
  * apply our bindings for Knockout.
  * @function
  */
-function initMap() {
+const initMap = () => {
   // Pause for the splash.
   setTimeout(function() {
     app.init();
@@ -30,7 +30,7 @@ function initMap() {
  * @description Let the viewer know something went wrong on load.
  * @function
  */
-function initError() {
+const initError = () => {
   app.appError(true);
 }
 
@@ -42,7 +42,5 @@ setTimeout(() => {
   }
 }, 5000);
 
-const app = new ViewModel(
-    getAllModels(brewhouseData)
-);
+const app = new ViewModel(getAllModels(brewhouseData));
 ko.applyBindings(app);

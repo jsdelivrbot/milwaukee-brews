@@ -750,15 +750,13 @@ var ViewModel = function () {
 }();
 'use strict';
 
-var app = new ViewModel(getAllModels(brewhouseData));
-ko.applyBindings(app);
-
 /**
  * @description Get all of the models.
  * @param {array} data
  * @function
  */
-function getAllModels(data) {
+
+var getAllModels = function getAllModels(data) {
   var locations = [];
 
   data.forEach(function (location, index) {
@@ -766,28 +764,28 @@ function getAllModels(data) {
   });
 
   return locations;
-}
+};
 
 /**
  * @description Initialize the map and then
  * apply our bindings for Knockout.
  * @function
  */
-function initMap() {
+var initMap = function initMap() {
   // Pause for the splash.
   setTimeout(function () {
     app.init();
     app.initMarkers();
   }, 1000);
-}
+};
 
 /**
  * @description Let the viewer know something went wrong on load.
  * @function
  */
-function initError() {
+var initError = function initError() {
   app.appError(true);
-}
+};
 
 // Let's watch to make sure Google loads up
 // If no, let the viewer know.
@@ -796,3 +794,6 @@ setTimeout(function () {
     initError();
   }
 }, 5000);
+
+var app = new ViewModel(getAllModels(brewhouseData));
+ko.applyBindings(app);

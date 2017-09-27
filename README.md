@@ -6,13 +6,13 @@ You can view the online version of this app on Heroku at [https://milwaukee-brew
 
 ## How to Run this App
 
-You can view it online or clone it down to your local machine.  To clone it, do the following:
+You can view it [online]((https://milwaukee-brews.herokuapp.com/)) or clone it down to your local machine.  To clone it, do the following:
 
 1. Open up terminal.
 2. Navigate to where you want to clone it.
 3. Type: `git clone https://github.com/hellofromtonya/milwaukee-brews.git`.
 4. Type: `cd milwaukee-brews`
-5. Start up your Node server.
+5. Type: `npm start`.  This starts up the server on `http://localhost:5000/`.
 6. Open it up in your browser.  Click on any of the markers.
 
 ## How it was built
@@ -22,7 +22,7 @@ This app is built with:
 - [Google Maps API](https://developers.google.com/maps/)
 - [KnockoutJS](http://knockoutjs.com/)
 - [Yelp Fusion v3 API](https://www.yelp.com/developers/documentation/v3)
-- [Node](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Font Awesome](http://fontawesome.io/)
 - [CSS Normalize](http://necolas.github.io/normalize.css/)
