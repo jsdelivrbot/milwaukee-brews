@@ -1,10 +1,12 @@
 'use strict';
 
+const serverURI = 'http://localhost:5000';
+
 function getPlaceModels(data) {
   const locations = [];
 
   data.forEach((location, index) => locations.push(
-     new PlaceModel(location, index)
+      new PlaceModel(location, index)
   ));
 
   return locations;

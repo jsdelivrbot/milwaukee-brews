@@ -1,0 +1,14 @@
+.brewhouse-info {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .brewhouse-info-content {
+    width: 70%;
+  }
+
+  img {
+    max-width: 150px;
+    max-height: 200px;
+  }
+}

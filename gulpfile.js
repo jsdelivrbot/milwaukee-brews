@@ -44,7 +44,7 @@ const paths = {
   ]
 };
 
-const destFolder = 'assets/' + VERSION + '/';
+const destFolder = 'public/' + VERSION + '/';
 
 /**
  * Handle errors and alert the user.

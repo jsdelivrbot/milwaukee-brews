@@ -56,7 +56,6 @@ class ViewModel {
    */
   init() {
     const self = this;
-    this.infoWindow = new google.maps.InfoWindow();
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: 43.044783,
@@ -66,6 +65,8 @@ class ViewModel {
       styles: getMinimalStyling(),
       mapTypeControl: false
     });
+
+    this.infoWindow = new InfoWindowView(this.map);
 
     // We'll use these customized icons for our markers.
     const defaultIcon = getMarkerIcon(getMarkerIconColors().color);
@@ -95,28 +96,16 @@ class ViewModel {
       return;
     }
 
-    this.getYelp(placeModel, placeModel.title(), this.populateInfoWindow);
-  }
-
-  populateInfoWindow(placeModel, yelpData) {
-    console.log(this);
-    this.infoWindow.close();
-    this.infoWindow.marker = marker;
-    this.infoWindow.setContent(`<div>${marker.info}</div>`);
-    this.infoWindow.open(this.map, marker);
-    // this.infoWindow.addListener('closeclick', () => self.infoWindow.close());
-  }
-
-  setPlace(self, placeModel) {
-    self.populateInfoWindow.call(self, self.markers[placeModel.id]);
+    this.getYelp(placeModel, this.infoWindow.render);
   }
 
   /**
-   * @description Filter the locations.
-   * @method
+   * @description Set the place's InfoWindow.
+   * @param {object} self
+   * @param {PlaceModel} placeModel
    */
-  filterPlaces() {
-    return '';
+  setPlace(self, placeModel) {
+    self.infoWindow.render.call(self.infoWindow, placeModel);
   }
 
   /**
@@ -127,27 +116,45 @@ class ViewModel {
     this.menuOpen(!this.menuOpen());
   }
 
-  getYelp(placeModel, businessName, cb) {
-    const self = this;
-    const yelpProxyURI = 'http://milwaukeebrewsmap.dev/api/yelp.php?location' + encodeURIComponent('Milwaukee, WI') + '&businessName=' + encodeURIComponent(businessName);
-    fetch(yelpProxyURI, {
-      method: 'GET',
+  /**
+   * @description Get the Yelp information for this brew house.
+   *
+   * This method works by contacting this site's 'yelp' endpoint
+   * and passing the location, business name (term), and yelp ID.
+   * The server then contacts the Yelp Fusion API to request
+   * the information.  Once received it's passed back to the browser
+   * and this method.
+   *
+   * @param {PlaceModel} placeModel
+   * @param {function} cb Callback to process once it's done.
+   */
+  getYelp(placeModel, cb) {
+    const infoWindow = this.infoWindow;
+
+    this.infoWindow.renderSpinner.call(infoWindow, placeModel);
+
+    fetch(serverURI + '/yelp', {
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-      }
+      },
+      body: JSON.stringify({
+        location: 'Milwaukee, WI',
+        term: placeModel.title()
+      })
     }).then(function(response) {
       if (response.status !== 200) {
         console.log(`Whoops, an error occurred with status code ${response.status}`);
-        return false;
+        return cb.call(infoWindow, placeModel, false);
       }
       // Examine the text in the response
       response.json().then(function(data) {
-        console.log(data);
-        return cb.call(self, placeModel, data);
+        return cb.call(infoWindow, placeModel, JSON.parse(data));
       });
     }).catch(function(err) {
       console.log(err);
+      return cb.call(infoWindow, placeModel, false);
     });
 
   }

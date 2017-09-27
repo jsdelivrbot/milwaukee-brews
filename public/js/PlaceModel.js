@@ -10,6 +10,8 @@ class PlaceModel {
     this.neighborhood = data.neighborhood;
     this.tag = ko.observableArray(data.tag);
     this.url = ko.observable(data.url);
+    this.address = data.address;
+    this.yelpID = data.yelpID;
   }
 
   makeVisible() {
