@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name=viewport content="width=device-width, initial-scale=1">
-    <title>Milwaukee MicroBrews - My Favorite Microbrewers in Milwaukee</title>
-    <meta name="description" content="Milwaukee MicroBrews - My Favorite Microbrewers in Milwaukee">
+    <title>Milwaukee Brew Houses</title>
+    <meta name="description" content="My Favorite Milwaukee Brew Houses">
 
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
@@ -24,17 +24,17 @@
                 <span class="hamburger__line"></span>
             </div>
         </div>
-        <h1 itemprop="headline">Downtown Milwaukee Breweries</h1>
+        <h1 itemprop="headline">Milwaukee Brew Houses</h1>
     </header>
 
-    <aside class="site-places on-dark" role="complementary" itemscope itemprop="https://schema.org/WPSideBar">
+    <aside class="site-brewhouses on-dark" role="complementary" itemscope itemprop="https://schema.org/WPSideBar">
         <nav class="site-nav">
-            <h2>Hotspots</h2>
-            <div class="filter-places">
+            <h2>Brew Houses</h2>
+            <div class="filter-brewhouses">
                 <input data-bind="value: nameFilter, valueUpdate: 'afterkeydown'" class="filter-by-name" type="text" placeholder="Location" autocomplete="off" itemprop="query-input">
             </div>
-            <ul class="hotspots-menu" data-bind="template: {foreach: filteredPlaces}">
-                <li class="hotspot-menu-item" data-bind="text: title, click: $parent.setPlace.bind($data, $parent)"></li>
+            <ul class="brewhouse-menu" data-bind="template: {foreach: filteredPlaces}">
+                <li class="brewhouse-menu-item" data-bind="text: title, click: $parent.setPlace.bind($data, $parent)"></li>
             </ul>
 
         </nav>
@@ -45,7 +45,6 @@
 
 <script src="bower-components/knockout/dist/knockout.js"></script>
 <script src="js/styles/minimal.js"></script>
-<script src="js/map/Marker.js"></script>
 <script src="js/ViewModel.js"></script>
 <script src="js/InfoWindowView.js"></script>
 <script src="js/PlaceModel.js"></script>

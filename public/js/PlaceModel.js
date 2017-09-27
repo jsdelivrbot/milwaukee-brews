@@ -12,8 +12,36 @@ class PlaceModel {
     this.url = ko.observable(data.url);
     this.address = data.address;
     this.yelpID = data.yelpID;
+    this.yelpData = null;
   }
 
+  /**
+   * @description Checks if this model has Yelp data.
+   * @returns {boolean}
+   * @method
+   */
+  hasYelpData() {
+    if (this.yelpData === null) {
+      return false;
+    }
+
+    return typeof this.yelpData === 'object' &&
+        this.yelpData.hasOwnProperty('rating');
+  }
+
+  /**
+   * @description Sets the Yelp data.
+   * @param {object} data
+   * @method
+   */
+  setYelpData(data) {
+    this.yelpData = data;
+  }
+
+  /**
+   * @description Make this marker visible.
+   * @method
+   */
   makeVisible() {
     if (!this.isVisible()) {
       this.isVisible(true);
@@ -21,6 +49,10 @@ class PlaceModel {
     }
   }
 
+  /**
+   * @description Hide this marker.
+   * @method
+   */
   hide() {
     if (this.isVisible()) {
       this.isVisible(false);
@@ -28,11 +60,10 @@ class PlaceModel {
     }
   }
 
-  toggleVisible() {
-    this.isVisible(!this.isVisible());
-    this.marker.setVisible(this.isVisible());
-  }
-
+  /**
+   * @description Initialize this Brew House's marker.
+   * @method
+   */
   initMarker(map, icon) {
     this.marker = new google.maps.Marker({
       position: this.coordinates,

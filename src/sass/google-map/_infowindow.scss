@@ -4,11 +4,10 @@
   flex-wrap: wrap;
 
   .brewhouse-info-content {
-    width: 70%;
-  }
+    width: 45%;
 
-  img {
-    max-width: 150px;
-    max-height: 200px;
+    p {
+      margin-bottom: 5px;
+    }
   }
 }

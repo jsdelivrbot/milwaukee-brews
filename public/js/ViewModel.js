@@ -14,14 +14,14 @@ class ViewModel {
     this.places = ko.observableArray(placeModels);
     this.menuOpen = ko.observable(false);
     this.markers = [];
-    this.filteredPlaces = ko.computed(() => this.filterHotspots());
+    this.filteredPlaces = ko.computed(() => this.filterPlaces());
   }
 
   /**
-   * @description Filter the Hotspots
+   * @description Filter the Places
    * @returns {array}
    */
-  filterHotspots() {
+  filterPlaces() {
     // Filter by name input.
     const filterby = this.nameFilter().toLowerCase();
 
@@ -61,16 +61,17 @@ class ViewModel {
         lat: 43.044783,
         lng: -87.911197
       },
-      zoom: 15,
+      zoom: 14,
       styles: getMinimalStyling(),
       mapTypeControl: false
     });
 
+    const mapBounds = new google.maps.LatLngBounds();
     this.infoWindow = new InfoWindowView(this.map);
 
     // We'll use these customized icons for our markers.
-    const defaultIcon = getMarkerIcon(getMarkerIconColors().color);
-    const highlightedIcon = getMarkerIcon(getMarkerIconColors().highlight);
+    const defaultIcon = this.getMarkerIcon(getMarkerIconColors().color);
+    const highlightedIcon = this.getMarkerIcon(getMarkerIconColors().highlight);
 
     this.places().forEach((placeModel) => {
       // Create the marker for this place.
@@ -78,6 +79,9 @@ class ViewModel {
 
       // Push the new marker onto the array
       self.markers.push(placeModel.marker);
+
+      // Extend the bounds for the marker
+      mapBounds.extend(placeModel.marker.position);
 
       // Bind a click listener for the InfoWindow.
       placeModel.marker.addListener('click', () => self.openInfoWindow.call(self, placeModel));
@@ -105,7 +109,8 @@ class ViewModel {
    * @param {PlaceModel} placeModel
    */
   setPlace(self, placeModel) {
-    self.infoWindow.render.call(self.infoWindow, placeModel);
+    self.openInfoWindow.call(self, placeModel);
+    // self.infoWindow.render.call(self.infoWindow, placeModel);
   }
 
   /**
@@ -131,6 +136,10 @@ class ViewModel {
   getYelp(placeModel, cb) {
     const infoWindow = this.infoWindow;
 
+    if (placeModel.hasYelpData()) {
+      return cb.call(infoWindow, placeModel);
+    }
+
     this.infoWindow.renderSpinner.call(infoWindow, placeModel);
 
     fetch(serverURI + '/yelp', {
@@ -146,16 +155,28 @@ class ViewModel {
     }).then(function(response) {
       if (response.status !== 200) {
         console.log(`Whoops, an error occurred with status code ${response.status}`);
-        return cb.call(infoWindow, placeModel, false);
+        return cb.call(infoWindow, placeModel, true);
       }
       // Examine the text in the response
       response.json().then(function(data) {
-        return cb.call(infoWindow, placeModel, JSON.parse(data));
+        placeModel.setYelpData(JSON.parse(data));
+        return cb.call(infoWindow, placeModel);
       });
     }).catch(function(err) {
       console.log(err);
-      return cb.call(infoWindow, placeModel, false);
+      return cb.call(infoWindow, placeModel, true);
     });
 
+  }
+
+  getMarkerIcon(markerColor) {
+    return new google.maps.MarkerImage(
+        'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+        '|40|_|%E2%80%A2',
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(10, 34),
+        new google.maps.Size(21, 34)
+    );
   }
 }

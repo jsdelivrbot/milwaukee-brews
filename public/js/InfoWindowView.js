@@ -21,18 +21,13 @@ class InfoWindowView {
   /**
    * @description Render the InfoWindow
    * @param {object} placeModel Brew house's model
-   * @param {bool|object} yelpData Brew house's Yelp data
+   * @param {bool} hasError When true, an error occurred.
    * @method
    */
-  render(placeModel, yelpData = false) {
+  render(placeModel, hasError = false) {
     this.infoWindow.close();
     this.infoWindow.marker = placeModel.marker;
-
-    const html = yelpData === false
-        ? this.buildWithOutYelp(placeModel)
-        : this.buildWithYelp(placeModel, yelpData);
-
-    this.infoWindow.setContent(html);
+    this.infoWindow.setContent(this.buildHTML(placeModel));
     this.infoWindow.open(this.map, placeModel.marker);
   }
 
@@ -63,38 +58,30 @@ class InfoWindowView {
   }
 
   /**
-   * @description Build the InfoWindow without Yelp.
-   * @param {object} placeModel Brew house's model
-   * @returns {string}
-   */
-  buildWithOutYelp(placeModel) {
-    return `<div class="infowindow-container">
-          <h2>${placeModel.title()}</h2>
-          <p>${placeModel.address}</p>
-          <p>${placeModel.marker.info}</p>
-          <footer>
-          <a href="${placeModel.url}" target="_blank">website</a>
-          </footer>
-        </div>`;
-  }
-
-  /**
    * @description Build the InfoWindow.
    * @param {object} placeModel Brew house's model
    * @returns {string}
    */
-  buildWithYelp(placeModel, yelpData) {
-    return `<div class="brewhouse-info-container">
+  buildHTML(placeModel) {
+    let links = `<a href="${placeModel.url}" target="_blank">website</a>`;
+
+    let html = `<div class="brewhouse-info-container">
           <h2>${placeModel.title()}</h2>
           <div class="brewhouse-info">
             <div class="brewhouse-info-content">
-              <p>${placeModel.address}</p>
-              <p>Yelp Rating: ${yelpData.rating}</p>
               <p><strong>My Review:</strong> ${placeModel.marker.info}</p>
-              <a href="${placeModel.url}" target="_blank">website</a> | <a href="${yelpData.url}" target="_blank">Yelp</a>
             </div>
-            <img src="${yelpData.image_url}" width="100">
+            <div class="brewhouse-info-content">
+                <p>${placeModel.address}</p>`;
+    if (placeModel.hasYelpData()) {
+      html += `<p>Yelp Rating: ${placeModel.yelpData.rating}</p>`;
+      links += ` | <a href="${placeModel.yelpData.url}" target="_blank">Yelp</a>`
+    }
+
+    html += `${links}</div>
           </div>
         </div>`;
+
+    return html;
   }
 }
