@@ -34,9 +34,6 @@ app.post('/yelp', function(req, res) {
   }).catch(e => {
     return res.json(e);
   });
-
-  // const yelpResponse = yelpProxy.getBusiness(request));
-  // return response.json(yelp());
 });
 
 app.listen(app.get('port'), function() {

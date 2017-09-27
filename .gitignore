@@ -1,7 +1,6 @@
 # Development files
 #/node_modules
 .idea/
-course-resources/
 
 .htmlhintrc
 .stylelintrc

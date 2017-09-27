@@ -2,7 +2,7 @@
 
 This NodeJS app provides a minimalistic Google Map of all my favorite brew houses in Milwaukee, WI USA.  I even give a personal review and recommendation just to tempt you into trying my favorites.
 
-You can view the online version of this app on [Heroku](https://milwaukee-brews.herokuapp.com/).
+You can view the online version of this app on Heroku at [https://milwaukee-brews.herokuapp.com/](https://milwaukee-brews.herokuapp.com/).
 
 ## How to Run this App
 
