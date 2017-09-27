@@ -1,7 +1,5 @@
 'use strict';
 
-const serverURI = 'http://localhost:5000';
-
 /**
  * @description Get all of the models.
  * @param {array} data
@@ -23,11 +21,30 @@ function getAllModels(data) {
  * @function
  */
 function initMap() {
-  app.init();
+  // Pause for the splash.
+  setTimeout(() => {
+    app.init();
+    app.initMarkers();
+  }, 1000);
+}
 
-  ko.applyBindings(app);
+/**
+ * @description Let the viewer know something went wrong on load.
+ * @function
+ */
+function initError() {
+  app.appError(true);
 }
 
 const app = new ViewModel(
     getAllModels(brewhouseData)
 );
+ko.applyBindings(app);
+
+// Let's watch to make sure Google loads up
+// If no, let the viewer know.
+setTimeout(() => {
+  if (!app.appRunning() || ! window.google || ! window.google.maps) {
+    initError();
+  }
+}, 5000);

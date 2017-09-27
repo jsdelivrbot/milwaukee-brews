@@ -10,6 +10,9 @@ class ViewModel {
    * @constructor
    */
   constructor(placeModels) {
+    this.appRunning = ko.observable(false);
+    this.appError = ko.observable(false);
+
     this.nameFilter = ko.observable('');
     this.places = ko.observableArray(placeModels);
     this.menuOpen = ko.observable(false);
@@ -18,8 +21,9 @@ class ViewModel {
   }
 
   /**
-   * @description Filter the Places
+   * @description Filter the Brew Houses
    * @returns {array}
+   * @method
    */
   filterPlaces() {
     // Filter by name input.
@@ -51,12 +55,17 @@ class ViewModel {
     });
   }
 
+  /*********************
+   * Initializers
+   ********************/
+
   /**
    * @description Initialize the app
    * @method
    */
   init() {
-    const self = this;
+    this.appRunning(true);
+
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: 43.045758,
@@ -66,6 +75,14 @@ class ViewModel {
       styles: getMinimalStyling(),
       mapTypeControl: false
     });
+  }
+
+  /**
+   * @description Initialize the markers
+   * @method
+   */
+  initMarkers() {
+    const self = this;
 
     const mapBounds = new google.maps.LatLngBounds();
     this.infoWindow = new InfoWindowView(this.map);
@@ -101,6 +118,10 @@ class ViewModel {
         ? 15
         : 14;
   }
+
+  /*********************
+   * Handlers
+   ********************/
 
   /**
    * @description Populate the InfoWindow for this marker.
@@ -159,8 +180,9 @@ class ViewModel {
     // Add the spinner to alert the viewer that we're working on.
     this.infoWindow.renderSpinner.call(infoWindow, placeModel);
 
-    // Let's call the nodejs server to get the Yelp the data.
-    fetch(serverURI + '/yelp', {
+    // Let's call our node.js server.
+    // It will then fetch the Yelp data.
+    fetch('yelp', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -184,7 +206,7 @@ class ViewModel {
         return cb.call(infoWindow, placeModel);
       });
 
-    // Whoops, something went wrong.
+      // Whoops, something went wrong.
     }).catch(function(err) {
       console.log(err);
       return cb.call(infoWindow, placeModel, true);

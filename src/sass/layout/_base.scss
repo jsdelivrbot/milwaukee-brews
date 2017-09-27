@@ -11,3 +11,9 @@
     color: map-get($on-dark-colors, 'color');
   }
 }
+
+.error {
+  background-color: #cc0000;
+  color: #fff;
+  padding: 20px;
+}
