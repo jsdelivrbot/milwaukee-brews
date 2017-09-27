@@ -53,12 +53,11 @@ class ViewModel {
     const mapBounds = new google.maps.LatLngBounds();
 
     // We'll use these customized icons for our markers.
-    const defaultIcon = this.getMarkerIcon(getMarkerIconColors().color);
-    const highlightedIcon = this.getMarkerIcon(getMarkerIconColors().highlight);
+    this.initIconStyling();
 
     this.places().forEach((placeModel) => {
       // Create the marker for this place.
-      placeModel.initMarker(self.map, defaultIcon);
+      placeModel.initMarker(self.map, self.iconStyling.defaultIcon);
 
       // Push the new marker onto the array
       self.markers.push(placeModel.marker);
@@ -68,8 +67,12 @@ class ViewModel {
 
       // Bind a click listener for the InfoWindow.
       placeModel.marker.addListener('click', () => self.openInfoWindow.call(self, placeModel));
-      placeModel.marker.addListener('mouseover', () => placeModel.marker.setIcon(highlightedIcon));
-      placeModel.marker.addListener('mouseout', () => placeModel.marker.setIcon(defaultIcon));
+      placeModel.marker.addListener('mouseover', () =>
+          placeModel.marker.setIcon(self.iconStyling.highlightedIcon)
+      );
+      placeModel.marker.addListener('mouseout', () =>
+          placeModel.marker.setIcon(self.iconStyling.defaultIcon)
+      );
     });
   }
 
@@ -84,6 +87,34 @@ class ViewModel {
         : 14;
   }
 
+  /**
+   * @description Initialize Icon Styling
+   * @method
+   */
+  initIconStyling() {
+    this.iconStyling = {
+      defaultIcon: this.getMarkerIcon(getMarkerIconColors().color),
+      highlightedIcon: this.getMarkerIcon(getMarkerIconColors().highlight)
+    };
+  }
+
+  /**
+   * @description Instantiates a new MarkerImage for the supplied color.
+   * @param {string} markerColor
+   * @returns {google.maps.MarkerImage}
+   * @method
+   */
+  getMarkerIcon(markerColor) {
+    return new google.maps.MarkerImage(
+        'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+        '|40|_|%E2%80%A2',
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(10, 34),
+        new google.maps.Size(21, 34)
+    );
+  }
+
   /*********************
    * Filtering
    ********************/
@@ -96,6 +127,10 @@ class ViewModel {
   filterPlaces() {
     // Filter by name input.
     const filterby = this.nameFilter().toLowerCase();
+
+    if (typeof this.infoWindow !== 'undefined') {
+      this.infoWindow.close();
+    }
 
     // Nothing to filter. Return all the models.
     if (!filterby) {
@@ -218,22 +253,5 @@ class ViewModel {
       return cb.call(infoWindow, placeModel, true);
     });
 
-  }
-
-  /**
-   * @description Instantiates a new MarkerImage for the supplied color.
-   * @param {string} markerColor
-   * @returns {google.maps.MarkerImage}
-   * @method
-   */
-  getMarkerIcon(markerColor) {
-    return new google.maps.MarkerImage(
-        'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
-        '|40|_|%E2%80%A2',
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0, 0),
-        new google.maps.Point(10, 34),
-        new google.maps.Size(21, 34)
-    );
   }
 }

@@ -229,14 +229,25 @@ var InfoWindowView = function () {
   }
 
   /**
-   * @description Render the InfoWindow
-   * @param {object} placeModel Brew house's model
-   * @param {bool} hasError When true, an error occurred.
+   * @description Close the InfoWindow
    * @method
    */
 
 
   _createClass(InfoWindowView, [{
+    key: 'close',
+    value: function close() {
+      this.infoWindow.close();
+    }
+
+    /**
+     * @description Render the InfoWindow
+     * @param {object} placeModel Brew house's model
+     * @param {bool} hasError When true, an error occurred.
+     * @method
+     */
+
+  }, {
     key: 'render',
     value: function render(placeModel) {
       var hasError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -381,7 +392,6 @@ var PlaceModel = function () {
     value: function makeVisible() {
       if (!this.isVisible()) {
         this.isVisible(true);
-        this.marker.setAnimation(google.maps.Animation.BOUNCE);
         this.marker.setVisible(true);
       }
     }
@@ -515,12 +525,11 @@ var ViewModel = function () {
       var mapBounds = new google.maps.LatLngBounds();
 
       // We'll use these customized icons for our markers.
-      var defaultIcon = this.getMarkerIcon(getMarkerIconColors().color);
-      var highlightedIcon = this.getMarkerIcon(getMarkerIconColors().highlight);
+      this.initIconStyling();
 
       this.places().forEach(function (placeModel) {
         // Create the marker for this place.
-        placeModel.initMarker(self.map, defaultIcon);
+        placeModel.initMarker(self.map, self.iconStyling.defaultIcon);
 
         // Push the new marker onto the array
         self.markers.push(placeModel.marker);
@@ -533,10 +542,10 @@ var ViewModel = function () {
           return self.openInfoWindow.call(self, placeModel);
         });
         placeModel.marker.addListener('mouseover', function () {
-          return placeModel.marker.setIcon(highlightedIcon);
+          return placeModel.marker.setIcon(self.iconStyling.highlightedIcon);
         });
         placeModel.marker.addListener('mouseout', function () {
-          return placeModel.marker.setIcon(defaultIcon);
+          return placeModel.marker.setIcon(self.iconStyling.defaultIcon);
         });
       });
     }
@@ -551,6 +560,33 @@ var ViewModel = function () {
     key: 'getMapZoom',
     value: function getMapZoom() {
       return window.innerWidth > 1000 && window.innerHeight > 900 ? 15 : 14;
+    }
+
+    /**
+     * @description Initialize Icon Styling
+     * @method
+     */
+
+  }, {
+    key: 'initIconStyling',
+    value: function initIconStyling() {
+      this.iconStyling = {
+        defaultIcon: this.getMarkerIcon(getMarkerIconColors().color),
+        highlightedIcon: this.getMarkerIcon(getMarkerIconColors().highlight)
+      };
+    }
+
+    /**
+     * @description Instantiates a new MarkerImage for the supplied color.
+     * @param {string} markerColor
+     * @returns {google.maps.MarkerImage}
+     * @method
+     */
+
+  }, {
+    key: 'getMarkerIcon',
+    value: function getMarkerIcon(markerColor) {
+      return new google.maps.MarkerImage('https://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor + '|40|_|%E2%80%A2', new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34), new google.maps.Size(21, 34));
     }
 
     /*********************
@@ -568,6 +604,10 @@ var ViewModel = function () {
     value: function filterPlaces() {
       // Filter by name input.
       var filterby = this.nameFilter().toLowerCase();
+
+      if (typeof this.infoWindow !== 'undefined') {
+        this.infoWindow.close();
+      }
 
       // Nothing to filter. Return all the models.
       if (!filterby) {
@@ -704,31 +744,20 @@ var ViewModel = function () {
         return cb.call(infoWindow, placeModel, true);
       });
     }
-
-    /**
-     * @description Instantiates a new MarkerImage for the supplied color.
-     * @param {string} markerColor
-     * @returns {google.maps.MarkerImage}
-     * @method
-     */
-
-  }, {
-    key: 'getMarkerIcon',
-    value: function getMarkerIcon(markerColor) {
-      return new google.maps.MarkerImage('https://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor + '|40|_|%E2%80%A2', new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34), new google.maps.Size(21, 34));
-    }
   }]);
 
   return ViewModel;
 }();
 'use strict';
 
+var app = new ViewModel(getAllModels(brewhouseData));
+ko.applyBindings(app);
+
 /**
  * @description Get all of the models.
  * @param {array} data
  * @function
  */
-
 function getAllModels(data) {
   var locations = [];
 
@@ -759,9 +788,6 @@ function initMap() {
 function initError() {
   app.appError(true);
 }
-
-var app = new ViewModel(getAllModels(brewhouseData));
-ko.applyBindings(app);
 
 // Let's watch to make sure Google loads up
 // If no, let the viewer know.

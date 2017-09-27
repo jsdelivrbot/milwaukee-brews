@@ -1,5 +1,10 @@
 'use strict';
 
+const app = new ViewModel(
+    getAllModels(brewhouseData)
+);
+ko.applyBindings(app);
+
 /**
  * @description Get all of the models.
  * @param {array} data
@@ -22,7 +27,7 @@ function getAllModels(data) {
  */
 function initMap() {
   // Pause for the splash.
-  setTimeout(() => {
+  setTimeout(function() {
     app.init();
     app.initMarkers();
   }, 1000);
@@ -35,11 +40,6 @@ function initMap() {
 function initError() {
   app.appError(true);
 }
-
-const app = new ViewModel(
-    getAllModels(brewhouseData)
-);
-ko.applyBindings(app);
 
 // Let's watch to make sure Google loads up
 // If no, let the viewer know.

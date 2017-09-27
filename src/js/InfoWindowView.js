@@ -21,6 +21,14 @@ class InfoWindowView {
   }
 
   /**
+   * @description Close the InfoWindow
+   * @method
+   */
+  close() {
+    this.infoWindow.close();
+  }
+
+  /**
    * @description Render the InfoWindow
    * @param {object} placeModel Brew house's model
    * @param {bool} hasError When true, an error occurred.

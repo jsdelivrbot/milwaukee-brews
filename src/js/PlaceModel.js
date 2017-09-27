@@ -54,7 +54,6 @@ class PlaceModel {
   makeVisible() {
     if (!this.isVisible()) {
       this.isVisible(true);
-      this.marker.setAnimation(google.maps.Animation.BOUNCE);
       this.marker.setVisible(true);
     }
   }
