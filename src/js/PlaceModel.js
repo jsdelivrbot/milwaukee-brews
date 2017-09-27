@@ -54,6 +54,7 @@ class PlaceModel {
   makeVisible() {
     if (!this.isVisible()) {
       this.isVisible(true);
+      this.marker.setAnimation(google.maps.Animation.BOUNCE);
       this.marker.setVisible(true);
     }
   }
@@ -66,6 +67,7 @@ class PlaceModel {
     if (this.isVisible()) {
       this.isVisible(false);
       this.marker.setVisible(false);
+      this.marker.setAnimation(null);
     }
   }
 
@@ -85,5 +87,12 @@ class PlaceModel {
     });
 
     return this.marker;
+  }
+
+  setMarkerAnimation() {
+    this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(() => {
+      this.marker.setAnimation(null);
+    }, 750);
   }
 }

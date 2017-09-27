@@ -1,3 +1,17 @@
+.brewhouse-info-container {
+  h2 {
+    font-size: 18px;
+    background-color: map-get($on-dark-colors, 'sidebar-background');
+    color: #fff;
+    padding: 20px;
+    margin-bottom: 0;
+  }
+}
+
+.brewhouse-info-content {
+  padding: 10px 20px;
+}
+
 .brewhouse-info {
   display: flex;
   justify-content: space-between;
@@ -6,8 +20,33 @@
   .brewhouse-info-content {
     width: 45%;
 
-    p {
+    p:last-child {
       margin-bottom: 5px;
     }
+  }
+}
+
+.brewhouse-tags {
+
+  .fa {
+    font-size: 115%;
+    margin-right: 10px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.gm-style-iw {
+  top: 0 !important;
+  left: 0 !important;
+  width: 353px !important; // The outer div is set to this width.
+  max-height: 200px !important;
+  // turn on the y-axis scrollbar when needed.
+  overflow-y: scroll !important;
+
+  > div {
+    display: block !important;
+    max-width: 100% !important;
   }
 }

@@ -20,6 +20,74 @@ class ViewModel {
     this.filteredPlaces = ko.computed(() => this.filterPlaces());
   }
 
+  /*********************
+   * Initializers
+   ********************/
+
+  /**
+   * @description Initialize the app
+   * @method
+   */
+  init() {
+    this.appRunning(true);
+
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: {
+        lat: 43.045758,
+        lng: -87.906
+      },
+      zoom: this.getMapZoom(),
+      styles: getMinimalStyling(),
+      mapTypeControl: false
+    });
+
+    this.infoWindow = new InfoWindowView(this.map);
+  }
+
+  /**
+   * @description Initialize the markers
+   * @method
+   */
+  initMarkers() {
+    const self = this;
+    const mapBounds = new google.maps.LatLngBounds();
+
+    // We'll use these customized icons for our markers.
+    const defaultIcon = this.getMarkerIcon(getMarkerIconColors().color);
+    const highlightedIcon = this.getMarkerIcon(getMarkerIconColors().highlight);
+
+    this.places().forEach((placeModel) => {
+      // Create the marker for this place.
+      placeModel.initMarker(self.map, defaultIcon);
+
+      // Push the new marker onto the array
+      self.markers.push(placeModel.marker);
+
+      // Extend the bounds for the marker
+      mapBounds.extend(placeModel.marker.position);
+
+      // Bind a click listener for the InfoWindow.
+      placeModel.marker.addListener('click', () => self.openInfoWindow.call(self, placeModel));
+      placeModel.marker.addListener('mouseover', () => placeModel.marker.setIcon(highlightedIcon));
+      placeModel.marker.addListener('mouseout', () => placeModel.marker.setIcon(defaultIcon));
+    });
+  }
+
+  /**
+   * @description Get the Map's Zoom.
+   * @returns {number}
+   * @method
+   */
+  getMapZoom() {
+    return window.innerWidth > 1000 && window.innerHeight > 900
+        ? 15
+        : 14;
+  }
+
+  /*********************
+   * Filtering
+   ********************/
+
   /**
    * @description Filter the Brew Houses
    * @returns {array}
@@ -56,70 +124,6 @@ class ViewModel {
   }
 
   /*********************
-   * Initializers
-   ********************/
-
-  /**
-   * @description Initialize the app
-   * @method
-   */
-  init() {
-    this.appRunning(true);
-
-    this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: 43.045758,
-        lng: -87.906
-      },
-      zoom: this.getMapZoom(),
-      styles: getMinimalStyling(),
-      mapTypeControl: false
-    });
-  }
-
-  /**
-   * @description Initialize the markers
-   * @method
-   */
-  initMarkers() {
-    const self = this;
-
-    const mapBounds = new google.maps.LatLngBounds();
-    this.infoWindow = new InfoWindowView(this.map);
-
-    // We'll use these customized icons for our markers.
-    const defaultIcon = this.getMarkerIcon(getMarkerIconColors().color);
-    const highlightedIcon = this.getMarkerIcon(getMarkerIconColors().highlight);
-
-    this.places().forEach((placeModel) => {
-      // Create the marker for this place.
-      placeModel.initMarker(self.map, defaultIcon);
-
-      // Push the new marker onto the array
-      self.markers.push(placeModel.marker);
-
-      // Extend the bounds for the marker
-      mapBounds.extend(placeModel.marker.position);
-
-      // Bind a click listener for the InfoWindow.
-      placeModel.marker.addListener('click', () => self.openInfoWindow.call(self, placeModel));
-      placeModel.marker.addListener('mouseover', () => placeModel.marker.setIcon(highlightedIcon));
-      placeModel.marker.addListener('mouseout', () => placeModel.marker.setIcon(defaultIcon));
-    });
-  }
-
-  /**
-   * @description Get the Map's Zoom.
-   * @returns {number}
-   * @method
-   */
-  getMapZoom() {
-    return window.innerWidth > 1000 && window.innerHeight > 900
-        ? 15
-        : 14;
-  }
-
-  /*********************
    * Handlers
    ********************/
 
@@ -132,6 +136,8 @@ class ViewModel {
     if (this.infoWindow === placeModel.marker) {
       return;
     }
+
+    placeModel.setMarkerAnimation();
 
     this.getYelp(placeModel, this.infoWindow.render);
   }

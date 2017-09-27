@@ -15,7 +15,9 @@ class InfoWindowView {
    */
   constructor(map) {
     this.map = map;
-    this.infoWindow = new google.maps.InfoWindow();
+    this.infoWindow = new google.maps.InfoWindow({
+      maxWidth: 300,
+    });
   }
 
   /**
@@ -49,11 +51,16 @@ class InfoWindowView {
    * @returns {string}
    */
   buildSpinnerHTML(placeModel) {
-    return `<div class="infowindow-container">
+    return `<div class="brewhouse-info-container">
           <h2>${placeModel.title()}</h2>
-          <p>${placeModel.address}</p>
-          <p>Please wait as we connect Yelp...</p>
-          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>
+          <div class="brewhouse-info">
+            <div class="brewhouse-info-content">
+                <p>Please wait as we connect Yelp...</p>
+            </div>
+            <div class="brewhouse-info-content">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>
+            </div>
+          </div>
         </div>`;
   }
 
@@ -65,10 +72,19 @@ class InfoWindowView {
   buildHTML(placeModel) {
     let links = `<a href="${placeModel.url}" target="_blank">website</a>`;
 
+    let tags = '<i class="fa fa-beer" aria-hidden="true"></i>';
+    if (placeModel.tag().includes('restaurant')) {
+      tags += '<i class="fa fa-cutlery" aria-hidden="true"></i>';
+    }
+    if (placeModel.tag().includes('live music')) {
+      tags += '<i class="fa fa-music" aria-hidden="true"></i>';
+    }
+
     let html = `<div class="brewhouse-info-container">
           <h2>${placeModel.title()}</h2>
           <div class="brewhouse-info">
             <div class="brewhouse-info-content">
+              <p class="brewhouse-tags">${tags}</p>
               <p><strong>My Review:</strong> ${placeModel.marker.info}</p>
             </div>
             <div class="brewhouse-info-content">
