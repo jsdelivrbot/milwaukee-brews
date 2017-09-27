@@ -89,6 +89,11 @@ class PlaceModel {
     return this.marker;
   }
 
+  /**
+   * @description Set the Marker Animation to bounce. Then after
+   * 0.750 seconds, it resets back to null.
+   * @method
+   */
   setMarkerAnimation() {
     this.marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(() => {

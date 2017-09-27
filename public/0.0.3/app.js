@@ -421,6 +421,13 @@ var PlaceModel = function () {
 
       return this.marker;
     }
+
+    /**
+     * @description Set the Marker Animation to bounce. Then after
+     * 0.750 seconds, it resets back to null.
+     * @method
+     */
+
   }, {
     key: 'setMarkerAnimation',
     value: function setMarkerAnimation() {
@@ -708,7 +715,7 @@ var ViewModel = function () {
   }, {
     key: 'getMarkerIcon',
     value: function getMarkerIcon(markerColor) {
-      return new google.maps.MarkerImage('http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor + '|40|_|%E2%80%A2', new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34), new google.maps.Size(21, 34));
+      return new google.maps.MarkerImage('https://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor + '|40|_|%E2%80%A2', new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34), new google.maps.Size(21, 34));
     }
   }]);
 

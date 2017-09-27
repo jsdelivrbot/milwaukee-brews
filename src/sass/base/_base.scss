@@ -1,18 +1,11 @@
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: inherit;
-}
-
-::-moz-selection,
-::selection {
-  background: map-get($color-palette, black);
-  color: map-get($color-palette, white);
 }
 
 html,
