@@ -1,10 +1,5 @@
 'use strict';
 
-const app = new ViewModel(
-    getAllModels(brewhouseData)
-);
-ko.applyBindings(app);
-
 /**
  * @description Get all of the models.
  * @param {array} data
@@ -13,9 +8,7 @@ ko.applyBindings(app);
 function getAllModels(data) {
   const locations = [];
 
-  data.forEach((location, index) => locations.push(
-      new PlaceModel(location, index)
-  ));
+  data.forEach((location, index) => locations.push(new PlaceModel(location, index)));
 
   return locations;
 }
@@ -48,3 +41,8 @@ setTimeout(() => {
     initError();
   }
 }, 5000);
+
+const app = new ViewModel(
+    getAllModels(brewhouseData)
+);
+ko.applyBindings(app);

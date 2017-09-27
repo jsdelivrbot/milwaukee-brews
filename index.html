@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>Milwaukee Brew Houses</title>
+    <meta name="description" content="My Favorite Milwaukee Brew Houses">
+
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="public/bower-components/normalize-css/normalize.css">
+    <link rel="stylesheet" href="public/0.0.4/style.min.css">
+</head>
+<body data-bind="css: {'app-running': appRunning}" itemscope itemtype="http://schema.org/WebPage">
+
+<section class="splash on-dark" data-bind="css: {'hide': appRunning}">
+    <header class="message" itemscope itemtype="https://schema.org/WPHeader">
+        <h2>My Favorite Milwaukee Brew Houses are loading just for you. Please wait...</h2>
+        <p class="error hide" data-bind="css: {'hide': !appError()}">Whoops, something went wrong.</p>
+    </header>
+    <ul class="bubbles" data-bind="template: {foreach: new Array(15)}">
+        <li class="bubble"></li>
+    </ul>
+</section>
+
+<section class="site-container hide" data-bind="css: {'menu-open': menuOpen, 'hide': !appRunning()}">
+
+    <header class="site-header on-dark" itemscope itemtype="https://schema.org/WPHeader">
+        <div class="hamburger__menu" itemscope itemtype="https://schema.org/SiteNavigationElement"
+             data-bind="click: toggleSidebar">
+            <div class="hamburger__lines">
+                <span class="hamburger__line"></span>
+                <span class="hamburger__line"></span>
+                <span class="hamburger__line"></span>
+            </div>
+        </div>
+        <h1 itemprop="headline">Milwaukee Brew Houses</h1>
+    </header>
+
+    <aside class="site-brewhouses on-dark" itemscope itemprop="https://schema.org/WPSideBar">
+        <nav class="site-nav">
+            <h2>Brew Houses</h2>
+            <div class="filter-brewhouses">
+                <input data-bind="value: nameFilter, valueUpdate: 'afterkeydown'" class="filter-by-name" type="text" placeholder="Location" autocomplete="off" itemprop="query-input">
+            </div>
+            <ul class="brewhouse-menu" data-bind="template: {foreach: filteredPlaces}">
+                <li class="brewhouse-menu-item" data-bind="text: title, click: $parent.setPlace.bind($data, $parent)"></li>
+            </ul>
+
+        </nav>
+    </aside>
+
+    <div id="map"></div>
+</section>
+
+<script src="public/bower-components/knockout/dist/knockout.js"></script>
+<script src="src/js/styles/minimal.js"></script>
+<script src="src/js/data.js"></script>
+<script src="src/js/PlaceModel.js"></script>
+<script src="src/js/InfoWindowView.js"></script>
+<script src="src/js/ViewModel.js"></script>
+<script src="src/js/app.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAhlQwwmSvCmnSXwe-k7YQGovnrVdjykJs&v=3&callback=initMap" onerror="initError()"></script>
+</body>
+</html>

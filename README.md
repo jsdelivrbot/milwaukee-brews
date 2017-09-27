@@ -48,9 +48,7 @@ Why not? It's lean and simple.  Plus, it was fun to give it a go.
 
 ## Disclaimer
 
-I built this app as part of the [Udacity Front-End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) program.
-
-This repository is not for general use, but rather an exercise as part of an education program.
+I built this app as part of the [Udacity Front-End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) program.  Udacity requires a root HTML file. Okay, so I built one, though it's not being used as part of the final web server.
 
 Cheers and &lt;happy coding&gt;,    
 Tonya
