@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @description Get all of the models.
  * @param {array} data
@@ -11,7 +9,7 @@ const getAllModels = (data) => {
   data.forEach((location, index) => locations.push(new PlaceModel(location, index)));
 
   return locations;
-}
+};
 
 /**
  * @description Initialize the map and then
@@ -24,7 +22,7 @@ const initMap = () => {
     app.init();
     app.initMarkers();
   }, 1000);
-}
+};
 
 /**
  * @description Let the viewer know something went wrong on load.
@@ -32,7 +30,7 @@ const initMap = () => {
  */
 const initError = () => {
   app.appError(true);
-}
+};
 
 // Let's watch to make sure Google loads up
 // If no, let the viewer know.

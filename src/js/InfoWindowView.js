@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * The InfoWindow which appears above a selected
  * marker requires addition rendering to build

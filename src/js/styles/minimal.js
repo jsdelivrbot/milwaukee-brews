@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * @description Light gray Google Map style provided by Snazzy Maps
  * @link https://snazzymaps.com/style/132/light-gray

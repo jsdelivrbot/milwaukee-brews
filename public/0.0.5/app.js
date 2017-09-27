@@ -4,7 +4,6 @@
  * @description Light gray Google Map style provided by Snazzy Maps
  * @link https://snazzymaps.com/style/132/light-gray
  */
-
 function getMinimalStyling() {
   return [{
     "featureType": "water",
@@ -201,6 +200,10 @@ var brewhouseData = [{
 }];
 'use strict';
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 /**
  * The InfoWindow which appears above a selected
  * marker requires addition rendering to build
@@ -208,11 +211,6 @@ var brewhouseData = [{
  *
  * This class handles the view rendering.
  */
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 var InfoWindowView = function () {
   /**
    * @description Instantiate the Info Window
@@ -318,7 +316,7 @@ var InfoWindowView = function () {
 
   return InfoWindowView;
 }();
-"use strict";
+'use strict';
 
 /**
  * @description a Place Model holds the data for
@@ -748,14 +746,13 @@ var ViewModel = function () {
 
   return ViewModel;
 }();
-'use strict';
+"use strict";
 
 /**
  * @description Get all of the models.
  * @param {array} data
  * @function
  */
-
 var getAllModels = function getAllModels(data) {
   var locations = [];
 
