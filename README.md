@@ -27,6 +27,7 @@ This app is built with:
 - [Font Awesome](http://fontawesome.io/)
 - [CSS Normalize](http://necolas.github.io/normalize.css/)
 - JavaScript ES6 OOP
+- Sass
 
 ### Why Node?  
 
@@ -43,6 +44,7 @@ Why not? It's lean and simple.  Plus, it was fun to give it a go.
 - The Yelp Fusion API code is an adaption of the [sample provided by Yelp](https://github.com/Yelp/yelp-fusion/blob/master/fusion/node/sample.js).
 - The Google Map styles are provided by [Snazzy Maps](https://snazzymaps.com/style/132/light-gray).
 - The sidebar sliding animation is an adaption of ["Off-Canvas Navigation Transitions"](https://tympanus.net/codrops/2013/08/28/transitions-for-off-canvas-navigations/) article by Mary Lou via Codrops.
+- The bubbles on the Splash page are an adaption inspired from [Jacob Gibellini's pen](https://codepen.io/jacobgibellini/pen/zrrWWQ?q=boilin%27%20bubbles&limit=all&order=popularity&depth=everything&show_forks=false).
 
 ## Disclaimer
 
