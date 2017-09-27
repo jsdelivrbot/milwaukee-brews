@@ -10,8 +10,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js",
-    "postinstall": "bower install"
+    "test": "node test.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
