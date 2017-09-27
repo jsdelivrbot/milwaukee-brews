@@ -30,17 +30,12 @@ const uglify = require('gulp-uglify');
 const paths = {
   'css': ['src/sass/*.scss'],
   'scripts': [
-    // 'js/resources.js',
-    // 'js/views/GameBoard.js',
-    // 'js/views/Modal.js',
-    // 'js/pieces/GamePiece.js',
-    // 'js/pieces/Enemy.js',
-    // 'js/pieces/GamePiecePool.js',
-    // 'js/pieces/EnemyPool.js',
-    // 'js/pieces/CollectiblePool.js',
-    // 'js/pieces/Player.js',
-    // 'js/GameController.js',
-    'js/app.js'
+    'src/js/styles/minimal.js',
+    'src/js/data.js',
+    'src/js/InfoWindowView.js',
+    'src/js/PlaceModel.js',
+    'src/js/ViewModel.js',
+    'src/js/app.js'
   ]
 };
 
