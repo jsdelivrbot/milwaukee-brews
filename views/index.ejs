@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="bower-components/normalize-css/normalize.css">
     <link rel="stylesheet" href="0.0.3/style.min.css">
 </head>
-<body data-bind="css: {'app-running': appRunning}">
+<body data-bind="css: {'app-running': appRunning}" itemscope itemtype="http://schema.org/WebPage">
 
 <section class="splash on-dark" data-bind="css: {'hide': appRunning}">
     <header class="message" itemscope itemtype="https://schema.org/WPHeader">
-        <p>My Favorite Milwaukee Brew Houses are loading just for you. Please wait...</p>
+        <h2>My Favorite Milwaukee Brew Houses are loading just for you. Please wait...</h2>
         <p class="error hide" data-bind="css: {'hide': !appError()}">Whoops, something went wrong.</p>
     </header>
     <ul class="bubbles" data-bind="template: {foreach: new Array(15)}">
@@ -37,7 +37,7 @@
         <h1 itemprop="headline">Milwaukee Brew Houses</h1>
     </header>
 
-    <aside class="site-brewhouses on-dark" role="complementary" itemscope itemprop="https://schema.org/WPSideBar">
+    <aside class="site-brewhouses on-dark" itemscope itemprop="https://schema.org/WPSideBar">
         <nav class="site-nav">
             <h2>Brew Houses</h2>
             <div class="filter-brewhouses">
