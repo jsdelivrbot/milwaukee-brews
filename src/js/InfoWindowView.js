@@ -35,7 +35,7 @@ class InfoWindowView {
   render(placeModel, hasError = false) {
     this.infoWindow.close();
     this.infoWindow.marker = placeModel.marker;
-    this.infoWindow.setContent(this.buildHTML(placeModel));
+    this.infoWindow.setContent(this.buildHTML(placeModel, hasError));
     this.infoWindow.open(this.map, placeModel.marker);
   }
 
@@ -73,9 +73,10 @@ class InfoWindowView {
   /**
    * @description Build the InfoWindow.
    * @param {object} placeModel Brew house's model
+   * @param {bool} hasError When true, an error occurred.
    * @returns {string}
    */
-  buildHTML(placeModel) {
+  buildHTML(placeModel, hasError = false) {
     let links = `<a href="${placeModel.url}" target="_blank">website</a>`;
 
     let tags = '<i class="fa fa-beer" aria-hidden="true"></i>';
@@ -95,9 +96,14 @@ class InfoWindowView {
             </div>
             <div class="brewhouse-info-content">
                 <p>${placeModel.address}</p>`;
+
     if (placeModel.hasYelpData()) {
       html += `<p>Yelp Rating: ${placeModel.yelpData.rating}</p>`;
-      links += ` | <a href="${placeModel.yelpData.url}" target="_blank">Yelp</a>`
+      links += ` | <a href="${placeModel.yelpData.url}" target="_blank">Yelp</a>`;
+    } else if (hasError) {
+      html += '<p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Whoopsie, an error happened when contacting Yelp.</p>';
+    } else {
+      html += '<p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Whoops, something happened on our way to get Yelp information for you.</p>';
     }
 
     html += `${links}</div>

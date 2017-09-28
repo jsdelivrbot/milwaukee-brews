@@ -252,7 +252,7 @@ var InfoWindowView = function () {
 
       this.infoWindow.close();
       this.infoWindow.marker = placeModel.marker;
-      this.infoWindow.setContent(this.buildHTML(placeModel));
+      this.infoWindow.setContent(this.buildHTML(placeModel, hasError));
       this.infoWindow.open(this.map, placeModel.marker);
     }
 
@@ -286,12 +286,15 @@ var InfoWindowView = function () {
     /**
      * @description Build the InfoWindow.
      * @param {object} placeModel Brew house's model
+     * @param {bool} hasError When true, an error occurred.
      * @returns {string}
      */
 
   }, {
     key: 'buildHTML',
     value: function buildHTML(placeModel) {
+      var hasError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
       var links = '<a href="' + placeModel.url + '" target="_blank">website</a>';
 
       var tags = '<i class="fa fa-beer" aria-hidden="true"></i>';
@@ -303,9 +306,14 @@ var InfoWindowView = function () {
       }
 
       var html = '<div class="brewhouse-info-container">\n          <h2>' + placeModel.title() + '</h2>\n          <div class="brewhouse-info">\n            <div class="brewhouse-info-content">\n              <p class="brewhouse-tags">' + tags + '</p>\n              <p><strong>My Review:</strong> ' + placeModel.marker.info + '</p>\n            </div>\n            <div class="brewhouse-info-content">\n                <p>' + placeModel.address + '</p>';
+
       if (placeModel.hasYelpData()) {
         html += '<p>Yelp Rating: ' + placeModel.yelpData.rating + '</p>';
         links += ' | <a href="' + placeModel.yelpData.url + '" target="_blank">Yelp</a>';
+      } else if (hasError) {
+        html += '<p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Whoopsie, an error happened when contacting Yelp.</p>';
+      } else {
+        html += '<p><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Whoops, something happened on our way to get Yelp information for you.</p>';
       }
 
       html += links + '</div>\n          </div>\n        </div>';
