@@ -161,7 +161,7 @@ Once you're done and want to push it to production or back to your repository, y
 
 ## Disclaimer
 
-I built this app as part of the [Udacity Front-End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) program.
+I built this app as part of the [Udacity Front-End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001) program.  You may notice an unused file `index.html` in this app.  This file is just there to make Udacity's review team happy.  It doesn't do anything, as Node loads the index file that's in `views/index.ejs`.
 
 Cheers and &lt;happy coding&gt;,    
 Tonya
