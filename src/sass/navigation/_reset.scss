@@ -1,0 +1,22 @@
+.rezoom-map-icon {
+  margin-left: 10px;
+  font-size: 24px;
+  padding: 10px;
+  color: map-get($color-palette, black);
+  background-color: map-get($color-palette, yellow);
+  cursor: pointer;
+  z-index: 10001;
+
+  &:hover {
+    color: map-get($color-palette, yellow);
+    background-color: map-get($color-palette, black);
+  }
+
+  @media screen and (min-width: 1200px) {
+    margin-left: 0;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 30px;
+  }
+}

@@ -8,7 +8,7 @@ const brewhouseData = [
     address: '740 N Plankinton Ave, Milwaukee, WI 53203',
     neighborhood: 'Westown',
     tag: ['brewery', 'restaurant'],
-    info: 'Amazing food and hand-crafted, small batch beers are waiting for you at Rock Bottom.',
+    info: 'Amazing food and hand-crafted, small batch beers are waiting for you at Rock Bottom. Make sure you try the Raccoon Red and my favorite, the Moonlight Porter. Yummy!',
     url: 'https://rockbottom.com/locations/milwaukee/',
     yelpID: 'rock-bottom-restaurant-and-brewery-milwaukee'
   },
@@ -21,7 +21,7 @@ const brewhouseData = [
     address: '233 N Water St, Milwaukee, WI 53202',
     neighborhood: 'Historic Third Ward',
     tag: ['brewery', 'restaurant', 'live music'],
-    info: 'The Ale House is the place in the Third Ward for live music, hand-crafted ales and lagers, and riverside dining.',
+    info: "The Ale House is the place in the Third Ward for amazing live music, hand-crafted ales and lagers, and riverside dining. Have them pour you a Louise's Demise. It's a medium-bodied amber that goes down smooooth as you enjoy the live music.",
     url: 'http://ale-house.com/',
     yelpID: 'milwaukee-ale-house-milwaukee'
   },

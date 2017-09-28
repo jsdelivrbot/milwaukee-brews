@@ -12,6 +12,7 @@ class ViewModel {
   constructor(placeModels) {
     this.appRunning = ko.observable(false);
     this.appError = ko.observable(false);
+    this.mapZoomedIn = ko.observable(false);
 
     this.nameFilter = ko.observable('');
     this.places = ko.observableArray(placeModels);
@@ -29,19 +30,21 @@ class ViewModel {
    * @method
    */
   init() {
-    this.appRunning(true);
+    this.mapCenterCoords = {
+      lat: 43.045758,
+      lng: -87.906
+    };
 
     this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {
-        lat: 43.045758,
-        lng: -87.906
-      },
+      center: this.mapCenterCoords,
       zoom: this.getMapZoom(),
       styles: getMinimalStyling(),
       mapTypeControl: false
     });
 
     this.infoWindow = new InfoWindowView(this.map);
+
+    this.appRunning(true);
   }
 
   /**
@@ -66,7 +69,7 @@ class ViewModel {
       mapBounds.extend(placeModel.marker.position);
 
       // Bind a click listener for the InfoWindow.
-      placeModel.marker.addListener('click', () => self.openInfoWindow.call(self, placeModel));
+      placeModel.marker.addListener('click', () => self.revealMarker.call(self, placeModel));
       placeModel.marker.addListener('mouseover', () =>
           placeModel.marker.setIcon(self.iconStyling.highlightedIcon)
       );
@@ -82,9 +85,11 @@ class ViewModel {
    * @method
    */
   getMapZoom() {
-    return window.innerWidth > 1000 && window.innerHeight > 900
+    this.mapFullZoom = window.innerWidth > 1000 && window.innerHeight > 900
         ? 15
         : 14;
+
+    return this.mapFullZoom;
   }
 
   /**
@@ -132,6 +137,8 @@ class ViewModel {
       this.infoWindow.close();
     }
 
+    this.resetMapZoom();
+
     // Nothing to filter. Return all the models.
     if (!filterby) {
       this.places().forEach((place) => place.makeVisible());
@@ -163,18 +170,53 @@ class ViewModel {
    ********************/
 
   /**
-   * @description Populate the InfoWindow for this marker.
+   * @description Marker reveal handler that animates the marker,
+   * centers and zooms the map on the marker, populate the InfoWindow,
+   * and then opens the InfoWindow to reveal more information.
    * @param {google.maps.Marker} marker Instance of the marker
    * @method
    */
-  openInfoWindow(placeModel) {
+  revealMarker(placeModel) {
     if (this.infoWindow === placeModel.marker) {
       return;
     }
 
+    // Bounce the marker.
     placeModel.setMarkerAnimation();
 
+    // Center and zoom the map into the selected marker.
+    this.centerZoomIn(placeModel);
+
+    // Go get the Yelp data and then open the InfoWindow.
     this.getYelp(placeModel, this.infoWindow.render);
+  }
+
+  /**
+   * @description Center and Zoom the Map into the selected marker.
+   * @param {PlaceModel} placeModel
+   * @method
+   */
+  centerZoomIn(placeModel) {
+    const map = this.map;
+
+    this.mapZoomedIn(true);
+
+    map.setCenter(placeModel.marker.getPosition());
+
+    map.setZoom(16);
+    map.panTo(placeModel.marker.getPosition());
+  }
+
+  /**
+   * @description Reset the map's zoom.
+   * @method
+   */
+  resetMapZoom() {
+    if (this.appRunning && typeof this.map !== 'undefined') {
+      this.map.setCenter(this.mapCenterCoords);
+      this.map.setZoom(this.mapFullZoom);
+    }
+    this.mapZoomedIn(false);
   }
 
   /**
@@ -184,7 +226,7 @@ class ViewModel {
    * @method
    */
   setPlace(self, placeModel) {
-    self.openInfoWindow.call(self, placeModel);
+    self.revealMarker.call(self, placeModel);
   }
 
   /**
