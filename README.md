@@ -77,6 +77,10 @@ The popup gives you the following information about this brew house:
 - Yelp's rating
 - Links to the brew house's website and its Yelp page
 
+If an error happens when contacting Yelp, you'll see an error message on the popup as noted in the red box in this image:
+
+![Yelp error](_wiki/yelp-error.jpg)
+
 ### How to Close the Popup
 
 Clicking on the X in the upper right hand corner of the popup closes it.
@@ -133,7 +137,7 @@ Once it's on your local machine, follow these steps:
 
     - 7.1. Navigate to the root of the project.
     - 7.2. Open the `gulpfile.js` file and uptick the version number.  That number is used for the folder name in `public`.
-    - 7.3. Type: `gulp lint`.  The scrips are linted using ESLint and the Udacity configuration.
+    - 7.3. Type: `gulp lint`.  The scripts are linted using ESLint and the Udacity configuration.
     - 7.4. Fix any problems that the linter tells you.
     - 7.5. Once fixed, then type: `gulp scripts`.  The scripts in the `src/js` folder are concatenated, converted to ES2015 via Babel, and then stored in a single file `public/YOUR-VERSION/app.js`.  Then that file is minified.
     - 7.6. Type: `gulp styles`.  The Sass partials are processed, stored in `public/YOUR-VERSION/style.css`.  Then that file is minified.
@@ -141,6 +145,12 @@ Once it's on your local machine, follow these steps:
 8. Open up `views/index.ejs`.  Change the `path-to` for the `style.min.css` and `app.min.js` files to the version number you created.        
  
 Rinse and repeat until you are happy with your creation.
+
+Once you're done and want to push it to production or back to your repository, you'll need to do the following:
+
+1. Delete the `node_modules` folder. 
+2. Type: `npm install --production`.  Only the server dependencies are loaded and not the development dependencies.
+3. When it's done, you can push it.
 
 ## Credits
 
