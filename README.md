@@ -17,6 +17,7 @@ Follow these steps to clone this repository onto your machine.
 3. Type: `git clone https://github.com/hellofromtonya/milwaukee-brews.git`.
 4. Type: `cd milwaukee-brews`
 5. Make sure you have node (at least version 8.4.0) and npm (at least version 5.3.0) installed.
+
     - 5.a. To check, type: `node -v` and then `npm -v`.
     - 5.b. If not installed, go to [nodejs.org](https://docs.npmjs.com/getting-started/installing-node) and then follow the steps.
     
@@ -129,12 +130,14 @@ Once it's on your local machine, follow these steps:
 5. The source front-end JavaScript files are located in `src/js` folder.  Make your changes there.
 6. This app uses Sass for the styles.  You can find the Sass files in `src/sass`.
 7. When you're done making changes, it's time to optimize the scrips and styles.  Do the following:
-        - 7.1. Navigate to the root of the project.
-        - 7.2. Open the `gulpfile.js` file and uptick the version number.  That number is used for the folder name in `public`.
-        - 7.3. Type: `gulp lint`.  The scrips are linted using ESLint and the Udacity configuration.
-        - 7.4. Fix any problems that the linter tells you.
-        - 7.5. Once fixed, then type: `gulp scripts`.  The scripts in the `src/js` folder are concatenated, converted to ES2015 via Babel, and then stored in a single file `public/YOUR-VERSION/app.js`.  Then that file is minified.
-        - 7.6. Type: `gulp styles`.  The Sass partials are processed, stored in `public/YOUR-VERSION/style.css`.  Then that file is minified.
+
+    - 7.1. Navigate to the root of the project.
+    - 7.2. Open the `gulpfile.js` file and uptick the version number.  That number is used for the folder name in `public`.
+    - 7.3. Type: `gulp lint`.  The scrips are linted using ESLint and the Udacity configuration.
+    - 7.4. Fix any problems that the linter tells you.
+    - 7.5. Once fixed, then type: `gulp scripts`.  The scripts in the `src/js` folder are concatenated, converted to ES2015 via Babel, and then stored in a single file `public/YOUR-VERSION/app.js`.  Then that file is minified.
+    - 7.6. Type: `gulp styles`.  The Sass partials are processed, stored in `public/YOUR-VERSION/style.css`.  Then that file is minified.
+
 8. Open up `views/index.ejs`.  Change the `path-to` for the `style.min.css` and `app.min.js` files to the version number you created.        
  
 Rinse and repeat until you are happy with your creation.
